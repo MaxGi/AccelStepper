@@ -50,6 +50,14 @@ public:
     /// the absolute position of the first stepper added by addStepper() etc. The array must be at least as long as 
     /// the number of steppers that have been added by addStepper, else results are undefined.
     void moveTo(long absolute[]);
+
+    /// Move the steppers by certain steps 
+    /// New speeds will be computed for each stepper so they will all arrive at their 
+    /// respective targets at very close to the same time.
+    /// \param[in] absolute An array of desired steps to move. absolute[0] will be used to set
+    /// the steps of the first stepper added by addStepper() etc. The array must be at least as long as 
+    /// the number of steppers that have been added by addStepper, else results are undefined.
+    void moveBy(long absolute[]);
     
     /// Calls runSpeed() on all the managed steppers
     /// that have not acheived their target position.

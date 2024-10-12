@@ -19,6 +19,36 @@ boolean MultiStepper::addStepper(AccelStepper& stepper)
     return true;
 }
 
+void MultiStepper::moveBy(long moveDistance[])
+{
+    // First find the stepper that will take the longest time to move
+    float longestTime = 0.0;
+
+    uint8_t i;
+    for (i = 0; i < _num_steppers; i++)
+    {
+
+		long thisDistance = moveDistance[i];
+		float thisTime = abs(thisDistance) / _steppers[i]->maxSpeed();
+
+		if (thisTime > longestTime)
+			longestTime = thisTime;
+    }
+
+    if (longestTime > 0.0)
+    {
+		// Now work out a new max speed for each stepper so they will all 
+		// arrived at the same time of longestTime
+		for (i = 0; i < _num_steppers; i++)
+		{
+			long thisDistance = moveDistance[i];
+			float thisSpeed = thisDistance / longestTime;
+			_steppers[i]->move(moveDistance[i]); // New target position (resets speed)
+			_steppers[i]->setSpeed(thisSpeed); // New speed
+		}
+    }
+}
+
 void MultiStepper::moveTo(long absolute[])
 {
     // First find the stepper that will take the longest time to move
