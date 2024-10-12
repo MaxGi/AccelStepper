@@ -1,3 +1,11 @@
+### This fork is used for a the 360-polar plotter. Most changes are in the Multistepper files.
+
+Added functions:
+moveBy() in Multistepper. Moves the motors a specific number of steps instead of a specific position. Was needed to keep track of movments around 0 degrees.
+
+-----------------------
+
+
 This fork follows the [upstream version](http://www.airspayce.com/mikem/arduino/AccelStepper/). Files are slightly reorganized to follow Arduino library conventions to allow for inclusion into the Arduino IDE library manager.
 
 Please direct questions and discussion to http://groups.google.com/group/accelstepper
